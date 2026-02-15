@@ -8,7 +8,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>PitStop 🚗</Text>
+      <Text style={styles.title}>PITSTOP 🚗</Text>
       <Text style={styles.subtitle}>La tua app di prova</Text>
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.buttonText}>Premi qui</Text>
@@ -18,34 +18,9 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#000",
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
-  },
-  title: {
-    fontSize: 52,
-    fontWeight: "bold",
-    color: "#fff",
-    textTransform: "uppercase",
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 24,
-    color: "#fff",
-    marginBottom: 30,
-  },
-  button: {
-    backgroundColor: "#1E90FF",
-    paddingVertical: 12,
-    paddingHorizontal: 25,
-    borderRadius: 8,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
+  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#000" },
+  title: { fontSize: 52, fontWeight: "bold", color: "#fff" },
+  subtitle: { fontSize: 24, color: "#fff", marginBottom: 20 },
+  button: { backgroundColor: "#1E90FF", paddingHorizontal: 20, paddingVertical: 12, borderRadius: 8 },
+  buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
 });
