@@ -27,8 +27,14 @@
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/Pitgo.icon.png"
-    },
+      "favicon": "./assets/images/Pitgo.icon.png",
+      "pwa": {
+    "name": "Pitgo",
+    "shortName": "Pitgo",
+    "display": "standalone",
+    "icon": "./assets/images/Pitgo.icon.png",
+    "themeColor": "#000000"  }
+  },
     "plugins": [
       "expo-router",
       [

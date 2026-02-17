@@ -8,7 +8,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>PitGo 🚗</Text>
+      <Text style={styles.title}>PitGo! 🚗</Text>
       <Text style={styles.subtitle}>La tua app di prova</Text>
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.buttonText}>Premi qui</Text>
