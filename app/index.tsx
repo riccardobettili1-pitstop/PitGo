@@ -1,14 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function HomeScreen() {
   const handlePress = () => {
-    Alert.alert("🚀 PitStop", "Hai premuto il bottone!");
+    Alert.alert("🚀 PitGo", "Hai premuto il bottone!");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>PITSTOP 🚗</Text>
+      <Text style={styles.title}>PitGo 🚗</Text>
       <Text style={styles.subtitle}>La tua app di prova</Text>
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.buttonText}>Premi qui</Text>
