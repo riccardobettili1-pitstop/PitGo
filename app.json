@@ -28,12 +28,28 @@
     "web": {
       "output": "static",
       "favicon": "./assets/images/Pitgo.icon.png",
-      "pwa": {
-    "name": "Pitgo",
-    "shortName": "Pitgo",
-    "display": "standalone",
-    "icon": "./assets/images/Pitgo.icon.png",
-    "themeColor": "#000000"  }
+      "config": {
+        "pwa": {
+          "display": "standalone",
+          "statusBarStyle": "default",
+          "manifest": {
+            "name": "PitGo",
+            "short_name": "PitGo",
+            "icons": [
+              {
+                "src": "./assets/images/PitGo.icon.png",
+                "sizes": "180x180",
+                "type": "image/png"
+              },
+              {
+                "src": "./assets/images/PitGo.icon.png",
+                "sizes": "512x512",
+                "type": "image/png"
+              }
+        ]
+      }
+    }
+  }
   },
     "plugins": [
       "expo-router",
