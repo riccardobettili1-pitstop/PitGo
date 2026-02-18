@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Image, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+// --- ICONA CONDIVIDI REALE (COSTRUITA CON VIEW) ---
+const IosShareIcon = () => (
+  <View style={styles.shareContainer}>
+    {/* La freccia (punta + gambo) */}
+    <View style={styles.arrowStem} />
+    <View style={styles.arrowTip} />
+    {/* Il quadrato aperto sopra */}
+    <View style={styles.shareSquare} />
+  </View>
+);
 
 // --- COMPONENTE POPUP ---
 const InstallPopup = () => {
@@ -27,11 +38,7 @@ const InstallPopup = () => {
       <View style={styles.instructionContainer}>
         <View style={styles.stepRow}>
           <Text style={styles.popupDesc}>1. Tocca il tasto </Text>
-          {/* Usiamo l'icona ufficiale Apple tramite URL per evitare errori di libreria */}
-          <Image 
-            source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/IOS_Share_Icon.svg/1200px-IOS_Share_Icon.svg.png' }} 
-            style={styles.shareIconImage} 
-          />
+          <IosShareIcon />
           <Text style={styles.popupDesc}> in basso.</Text>
         </View>
 
@@ -72,6 +79,7 @@ const styles = StyleSheet.create({
   button: { backgroundColor: "#1E90FF", paddingHorizontal: 20, paddingVertical: 12, borderRadius: 8 },
   buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
   
+  // POPUP
   popup: {
     position: "absolute", bottom: 30, left: 15, right: 15,
     backgroundColor: "#1C1C1E", padding: 25, borderRadius: 25,
@@ -84,15 +92,22 @@ const styles = StyleSheet.create({
   stepRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
   popupDesc: { color: "#AEAEB2", fontSize: 16, textAlign: "center" },
   highlightText: { color: "#fff", fontWeight: "bold" },
-  
-  // Stile per l'icona Share
-  shareIconImage: {
-    width: 22,
-    height: 22,
-    marginHorizontal: 8,
-    tintColor: "#0A84FF", // Applichiamo il blu Apple direttamente all'immagine
-  },
-
   closeButton: { marginTop: 20, padding: 10 },
-  closeButtonText: { color: "#0A84FF", fontWeight: "bold", fontSize: 16 }
+  closeButtonText: { color: "#0A84FF", fontWeight: "bold", fontSize: 16 },
+
+  // COSTRUZIONE MANUALE ICONA SHARE
+  shareContainer: { width: 24, height: 24, marginHorizontal: 8, alignItems: 'center', justifyContent: 'center' },
+  shareSquare: {
+    width: 18, height: 14, borderWidth: 2, borderColor: '#0A84FF',
+    borderTopWidth: 0, // Lasciamo il lato sopra aperto
+    borderRadius: 2, marginTop: 4
+  },
+  arrowStem: {
+    position: 'absolute', top: 2, width: 2, height: 10, backgroundColor: '#0A84FF', zIndex: 1
+  },
+  arrowTip: {
+    position: 'absolute', top: 2, width: 8, height: 8,
+    borderTopWidth: 2, borderLeftWidth: 2, borderColor: '#0A84FF',
+    transform: [{ rotate: '45deg' }], zIndex: 1
+  }
 });
