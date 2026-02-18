@@ -4,7 +4,7 @@
     "slug": "PitGo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/PitGo.icon.png",
+    "icon": "./assets/images/Pitgo.icon.png",
     "scheme": "pitstop",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -29,27 +29,14 @@
       "output": "static",
       "favicon": "./assets/images/Pitgo.icon.png",
       "config": {
-        "pwa": {
-          "display": "standalone",
-          "statusBarStyle": "default",
-          "manifest": {
-            "name": "PitGo",
-            "short_name": "PitGo",
-            "icons": [
-              {
-                "src": "./assets/images/PitGo.icon.png",
-                "sizes": "180x180",
-                "type": "image/png"
-              },
-              {
-                "src": "./assets/images/PitGo.icon.png",
-                "sizes": "512x512",
-                "type": "image/png"
-              }
-        ]
+    "pwa": {
+      "icon": "./assets/images/Pitgo.icon.png",
+      "apple": {
+        "mobileWebAppCapable": "yes",
+        "touchIcon": "./assets/images/Pitgo.icon.png",
+        "barStyle": "default"
       }
-    }
-  }
+    }}
   },
     "plugins": [
       "expo-router",
