@@ -1,113 +1,147 @@
-import React, { useEffect, useState } from "react";
-import { Alert, Platform, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useRouter } from "expo-router";
+import React from "react";
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-// --- ICONA CONDIVIDI REALE (COSTRUITA CON VIEW) ---
-const IosShareIcon = () => (
-  <View style={styles.shareContainer}>
-    {/* La freccia (punta + gambo) */}
-    <View style={styles.arrowStem} />
-    <View style={styles.arrowTip} />
-    {/* Il quadrato aperto sopra */}
-    <View style={styles.shareSquare} />
-  </View>
-);
-
-// --- COMPONENTE POPUP ---
-const InstallPopup = () => {
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    if (Platform.OS === "web") {
-      const isIos = /iPhone|iPad|iPod/.test(window.navigator.userAgent);
-      const nav = window.navigator as any;
-      const isStandalone = nav.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
-      
-      if (isIos && !isStandalone) {
-        setShow(true);
-      }
-    }
-  }, []);
-
-  if (!show) return null;
+export default function Index() {
+  const router = useRouter();
 
   return (
-    <View style={styles.popup}>
-      <View style={styles.indicator} />
-      <Text style={styles.popupTitle}>Installa PitGo su iPhone 🚀</Text>
-      
-      <View style={styles.instructionContainer}>
-        <View style={styles.stepRow}>
-          <Text style={styles.popupDesc}>1. Tocca il tasto </Text>
-          <IosShareIcon />
-          <Text style={styles.popupDesc}> in basso.</Text>
-        </View>
-
-        <Text style={[styles.popupDesc, { marginTop: 15 }]}>
-          2. Scorri e seleziona {"\n"}
-          <Text style={styles.highlightText}>"Aggiungi alla schermata Home"</Text>
-        </Text>
+    <SafeAreaView style={styles.container}>
+      {/* HEADER: Registrati in alto a destra */}
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.registerBtn}>
+          <Text style={styles.registerText}>Registrati</Text>
+        </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={() => setShow(false)} style={styles.closeButton}>
-        <Text style={styles.closeButtonText}>Ho capito</Text>
-      </TouchableOpacity>
-    </View>
+      <ScrollView contentContainerStyle={styles.content}>
+        
+        {/* LOGO CENTRALE E GRANDE */}
+        <View style={styles.logoWrapper}>
+          <Image 
+            source={require("../assets/images/logo.png")} 
+            style={styles.logoImage}
+            resizeMode="contain" 
+          />
+        </View>
+
+        {/* TITOLO PRINCIPALE */}
+        <View style={styles.heroSection}>
+          <Text style={styles.heroTitle}>Prenota il tuo{"\n"}appuntamento</Text>
+          <Text style={styles.heroSub}>PitGo: La tua officina a portata di click</Text>
+        </View>
+
+        {/* BOTTONE PRENOTA ORA (VERDE) */}
+        <TouchableOpacity 
+          style={styles.bookingCard}
+          onPress={() => alert("Servizio Prenotazioni in arrivo!")}
+        >
+          <View>
+            <Text style={styles.bookingTitle}>Prenota ora</Text>
+            <Text style={styles.bookingSub}>Scegli l'intervento</Text>
+          </View>
+          <View style={styles.bookingCircle}>
+            <Text style={styles.arrowText}>→</Text>
+          </View>
+        </TouchableOpacity>
+
+        {/* LISTA VOCI MENU */}
+        <View style={styles.menuList}>
+          <MenuRow 
+            title="Il mio Garage" 
+            emoji="🚘" 
+            onPress={() => router.push("/garage" as any)} 
+          />
+          <MenuRow 
+            title="I miei interventi" 
+            emoji="🔧" 
+            onPress={() => alert("Storico interventi")}
+          />
+          <MenuRow 
+            title="Il mio Account" 
+            emoji="👤" 
+            onPress={() => alert("Profilo utente")}
+          />
+        </View>
+
+        <Text style={styles.footer}>PITGO © 2026</Text>
+      </ScrollView>
+    </SafeAreaView>
   );
-};
+}
 
-export default function HomeScreen() {
-  const handlePress = () => {
-    Alert.alert("🚀 PitGo!!!", "Hai premuto il bottone!");
-  };
-
+// Componente per le righe del menu
+function MenuRow({ title, emoji, onPress }: { title: string, emoji: string, onPress: () => void }) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>PitGo! 🚗</Text>
-      <Text style={styles.subtitle}>La tua app di prova</Text>
-      <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.buttonText}>Premi qui</Text>
-      </TouchableOpacity>
-      <InstallPopup />
-    </View>
+    <TouchableOpacity style={styles.menuRow} onPress={onPress}>
+      <View style={styles.menuLeft}>
+        <View style={styles.menuIconBox}>
+          <Text style={styles.menuEmoji}>{emoji}</Text>
+        </View>
+        <Text style={styles.menuText}>{title}</Text>
+      </View>
+      <Text style={styles.menuArrow}>❯</Text>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#000" },
-  title: { fontSize: 52, fontWeight: "bold", color: "#fff" },
-  subtitle: { fontSize: 24, color: "#fff", marginBottom: 20 },
-  button: { backgroundColor: "#1E90FF", paddingHorizontal: 20, paddingVertical: 12, borderRadius: 8 },
-  buttonText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
-  
-  // POPUP
-  popup: {
-    position: "absolute", bottom: 30, left: 15, right: 15,
-    backgroundColor: "#1C1C1E", padding: 25, borderRadius: 25,
-    borderWidth: 1, borderColor: "#38383A", alignItems: "center",
-    zIndex: 999, shadowColor: "#000", shadowOpacity: 0.8, shadowRadius: 15,
+  container: { flex: 1, backgroundColor: "#000" },
+  header: { 
+    height: 60, 
+    flexDirection: 'row', 
+    justifyContent: 'flex-end', 
+    alignItems: 'center', 
+    paddingHorizontal: 20 
   },
-  indicator: { width: 40, height: 4, backgroundColor: "#38383A", borderRadius: 10, marginBottom: 15 },
-  popupTitle: { color: "#fff", fontSize: 18, fontWeight: "bold", textAlign: "center", marginBottom: 15 },
-  instructionContainer: { width: '100%' },
-  stepRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
-  popupDesc: { color: "#AEAEB2", fontSize: 16, textAlign: "center" },
-  highlightText: { color: "#fff", fontWeight: "bold" },
-  closeButton: { marginTop: 20, padding: 10 },
-  closeButtonText: { color: "#0A84FF", fontWeight: "bold", fontSize: 16 },
-
-  // COSTRUZIONE MANUALE ICONA SHARE
-  shareContainer: { width: 24, height: 24, marginHorizontal: 8, alignItems: 'center', justifyContent: 'center' },
-  shareSquare: {
-    width: 18, height: 14, borderWidth: 2, borderColor: '#0A84FF',
-    borderTopWidth: 0, // Lasciamo il lato sopra aperto
-    borderRadius: 2, marginTop: 4
+  registerBtn: { 
+    borderWidth: 1.5, 
+    borderColor: "#30D158", 
+    paddingHorizontal: 15, 
+    paddingVertical: 6, 
+    borderRadius: 12 
   },
-  arrowStem: {
-    position: 'absolute', top: 2, width: 2, height: 10, backgroundColor: '#0A84FF', zIndex: 1
+  registerText: { color: "#30D158", fontWeight: "800", fontSize: 13 },
+  content: { paddingHorizontal: 25, paddingBottom: 40 },
+  logoWrapper: { 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    height: 180, // Spazio per il logo
+    marginTop: 10 
   },
-  arrowTip: {
-    position: 'absolute', top: 2, width: 8, height: 8,
-    borderTopWidth: 2, borderLeftWidth: 2, borderColor: '#0A84FF',
-    transform: [{ rotate: '45deg' }], zIndex: 1
-  }
+  logoImage: { 
+    width: '85%', 
+    height: '100%' 
+  },
+  heroSection: { marginVertical: 30 },
+  heroTitle: { color: "#fff", fontSize: 34, fontWeight: "900", lineHeight: 40 },
+  heroSub: { color: "#8E8E93", fontSize: 16, marginTop: 10 },
+  bookingCard: { 
+    backgroundColor: "#30D158", 
+    padding: 24, 
+    borderRadius: 25, 
+    flexDirection: "row", 
+    justifyContent: "space-between", 
+    alignItems: "center",
+    marginBottom: 35
+  },
+  bookingTitle: { color: "#000", fontSize: 22, fontWeight: "900" },
+  bookingSub: { color: "rgba(0,0,0,0.6)", fontSize: 14, fontWeight: "700" },
+  bookingCircle: { width: 42, height: 42, backgroundColor: "#000", borderRadius: 21, justifyContent: "center", alignItems: "center" },
+  arrowText: { color: "#30D158", fontSize: 20, fontWeight: "bold" },
+  menuList: { gap: 12 },
+  menuRow: { 
+    backgroundColor: "#1C1C1E", 
+    flexDirection: "row", 
+    alignItems: "center", 
+    justifyContent: "space-between", 
+    padding: 18, 
+    borderRadius: 22 
+  },
+  menuLeft: { flexDirection: "row", alignItems: "center" },
+  menuIconBox: { width: 40, height: 40, backgroundColor: "#2C2C2E", borderRadius: 10, justifyContent: "center", alignItems: "center", marginRight: 15 },
+  menuEmoji: { fontSize: 20 },
+  menuText: { color: "#fff", fontSize: 17, fontWeight: "700" },
+  menuArrow: { color: "#3A3A3C", fontSize: 16 },
+  footer: { textAlign: "center", color: "#2C2C2E", marginTop: 50, fontSize: 11, letterSpacing: 3 }
 });
